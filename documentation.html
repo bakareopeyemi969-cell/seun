@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Fundamentals - Assignment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+        :root {
+            --bg: #f7f9fc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --border: #e2e8f0;
+            --accent-bg: #eff6ff;
+            --code-bg: #0f172a;
+            --code-text: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+            --shadow-hover: 0 8px 24px rgba(15, 23, 42, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+            /* offset for sticky nav */
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: #f7df1e;
+            color: #000;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            transition: 0.3s;
+        }
+
+        
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+            padding: 64px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #dbeafe;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 48px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s ease;
+        }
+
+        section:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .note {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 24px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fafcff;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        code {
+            font-family: 'Fira Code', 'SF Mono', 'Monaco', 'Consolas', monospace;
+            background: #f1f5f9;
+            color: #dc2626;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.92em;
+            font-weight: 600;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            font-family: 'Fira Code', monospace;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .result {
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: var(--accent-bg);
+            border-left: 4px solid var(--primary);
+            border-radius: 6px;
+            min-height: 48px;
+            font-size: 15px;
+        }
+
+        .document-write-frame {
+            width: 100%;
+            height: 80px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* MOBILE NAV */
+        @media (max-width: 900px) {
+            .nav-links {
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 20px 1.5rem;
+                border-bottom: 1px solid var(--border);
+                gap: 1rem;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            section {
+                padding: 24px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">JS</div>
+                JS Fundamentals
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">History</a></li>
+                <li><a href="documentation.html">Documentations</a></li>
+                <li><a href="calculator.html">calculator</a></li>
+
+
+            </ul>
+            
+        </div>
+    </nav>
+
+    <header>
+        <h1>JavaScript Fundamentals</h1>
+        <p>Reserved keywords, output methods, variables, data types, NaN, undefined, and object practice</p>
+    </header>
+
+    <main>
+        <section id="keywords">
+            <h2>1. 15 Reserved JavaScript Keywords</h2>
+            <p class="note">Keywords are words JavaScript reserves for syntax. You cannot use them as variable names.
+            </p>
+            <div class="grid">
+                <div class="card">
+                    <h3><code>var</code></h3>
+                    <p>Function-scoped variable declaration. Can be redeclared.</p>
+                </div>
+                <div class="card">
+                    <h3><code>let</code></h3>
+                    <p>Block-scoped variable. Can be reassigned but not redeclared.</p>
+                </div>
+                <div class="card">
+                    <h3><code>const</code></h3>
+                    <p>Block-scoped constant. Cannot be reassigned.</p>
+                </div>
+                <div class="card">
+                    <h3><code>if</code></h3>
+                    <p>Executes code if condition is true.</p>
+                </div>
+                <div class="card">
+                    <h3><code>else</code></h3>
+                    <p>Executes code if condition is false.</p>
+                </div>
+                <div class="card">
+                    <h3><code>for</code></h3>
+                    <p>Creates a loop that runs a set number of times.</p>
+                </div>
+                <div class="card">
+                    <h3><code>while</code></h3>
+                    <p>Loops while a condition is true.</p>
+                </div>
+                <div class="card">
+                    <h3><code>function</code></h3>
+                    <p>Declares a reusable code block.</p>
+                </div>
+                <div class="card">
+                    <h3><code>return</code></h3>
+                    <p>Returns a value from a function.</p>
+                </div>
+                <div class="card">
+                    <h3><code>class</code></h3>
+                    <p>Defines a blueprint for objects.</p>
+                </div>
+                <div class="card">
+                    <h3><code>new</code></h3>
+                    <p>Creates an instance of an object.</p>
+                </div>
+                <div class="card">
+                    <h3><code>try</code></h3>
+                    <p>Tests code for errors.</p>
+                </div>
+                <div class="card">
+                    <h3><code>catch</code></h3>
+                    <p>Handles errors from try block.</p>
+                </div>
+                <div class="card">
+                    <h3><code>switch</code></h3>
+                    <p>Evaluates an expression against multiple cases.</p>
+                </div>
+                <div class="card">
+                    <h3><code>break</code></h3>
+                    <p>Exits a loop or switch statement.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="output">
+            <h2>2. 6 JavaScript Output Methods</h2>
+            <p class="note">Methods to display data to users or developers.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>1. <code>innerHTML</code></h3>
+                    <p>Renders HTML inside an element.</p>
+                    <button onclick="showInnerHTML()">Try it</button>
+                    <div id="innerHTMLResult" class="result"></div>
+                </div>
+
+                <div class="card">
+                    <h3>2. <code>textContent</code></h3>
+                    <p>Inserts plain text, ignores HTML tags.</p>
+                    <button onclick="showTextContent()">Try it</button>
+                    <div id="textContentResult" class="result"></div>
+                </div>
+
+                <div class="card">
+                    <h3>3. <code>document.write()</code></h3>
+                    <p>Writes directly to document. Avoid in production.</p>
+                    <button onclick="showDocumentWrite()">Try it</button>
+                    <iframe id="writeFrame" class="document-write-frame" title="document.write demo"></iframe>
+                </div>
+
+                <div class="card">
+                    <h3>4. <code>alert()</code></h3>
+                    <p>Shows a modal popup message.</p>
+                    <button onclick="showAlert()">Try it</button>
+                    <div class="result">Click to trigger alert popup</div>
+                </div>
+
+                <div class="card">
+                    <h3>5. <code>console.log()</code></h3>
+                    <p>Logs data to browser console for debugging.</p>
+                    <button onclick="showConsoleLog()">Try it</button>
+                    <div id="consoleResult" class="result">Open DevTools to view console</div>
+                </div>
+
+                <div class="card">
+                    <h3>6. <code>window.print()</code></h3>
+                    <p>Opens print dialog for the page.</p>
+                    <button onclick="window.print()">Print Page</button>
+                    <div class="result">Opens your browser's print dialog</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="variables">
+            <h2>3. <code>var</code> vs <code>let</code> vs <code>const</code></h2>
+            <p class="note"><code>let</code> and <code>const</code> are preferred in modern JS due to block scoping.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3><code>var</code>: Redeclaration</h3>
+                    <p>Can be redeclared and is function-scoped.</p>
+                    <pre>var user = "Ada";
+var user = "John";
+console.log(user); // John</pre>
+                </div>
+
+                <div class="card">
+                    <h3><code>let</code>: Block Scope</h3>
+                    <p>Scoped to nearest { }. Cannot be redeclared.</p>
+                    <pre>let score = 10;
+if (true) {
+  let score2 = 20;
+  console.log(score2); // 20
+}
+console.log(score); // 10</pre>
+                </div>
+
+                <div class="card">
+                    <h3><code>const</code>: Fixed Value</h3>
+                    <p>Cannot be reassigned after it is set.</p>
+                    <pre>const country = "Nigeria";
+console.log(country); // Nigeria</pre>
+                </div>
+            </div>
+            <button onclick="runVariableDemo()" style="margin-top: 20px;">Run Demo</button>
+            <div id="variableDemoResult" class="result"></div>
+        </section>
+
+        <section id="datatypes">
+            <h2>4. Primitive vs Non-Primitive Data Types</h2>
+            <p class="note">Primitives store single values. Non-primitives store collections and references.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Primitive Types</h3>
+                    <p>Simple values: string, number, boolean, null, undefined.</p>
+                    <pre>let name = "Ada";
+let age = 20;
+let isActive = true;</pre>
+                </div>
+
+                <div class="card">
+                    <h3>Non-Primitive Types</h3>
+                    <p>Complex values: object, array, function.</p>
+                    <pre>let student = { name: "Ada", age: 20 };
+let scores = [70, 85, 90];</pre>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 16px;">
+                <h3>Key Difference</h3>
+                <p>Primitives compare by value. Objects compare by reference.</p>
+                <pre>let a = 10;
+let b = 10;
+console.log(a == b); // true</pre>
+            </div>
+        </section>
+
+        <section id="nan">
+            <h2>5. <code>NaN</code> vs <code>undefined</code></h2>
+            <p class="note">Both mean no value, but for different reasons.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3><code>undefined</code></h3>
+                    <p>Variable has no value yet.</p>
+                    <pre>let name;
+console.log(name); // undefined</pre>
+                </div>
+
+                <div class="card">
+                    <h3><code>NaN</code></h3>
+                    <p>Not a Number. Happens when math fails.</p>
+                    <pre>let result = "abc" * 2;
+console.log(result); // NaN</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="objects">
+            <h2>6. Restaurant Order from Object Data</h2>
+            <p class="note">Access object data using dot and bracket notation.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Data Source</h3>
+                    <pre>const restaurants = [
+  {
+    name: "Koko Dome",
+    location: "Cocoa House, Dugbe, Ibadan",
+    menu: {
+      swallow: ["Pounded Yam", "Eba", "Fufu"],
+      meats: ["Beef", "Turkey", "Catfish"],
+      drinks: ["Chapman", "Smirnoff Ice", "Coke", "Water"]
+    }
+  }
+];</pre>
+                </div>
+
+                <div class="card">
+                    <h3>My Order</h3>
+                    <p>2 wraps of Eba, 1 piece of Turkey, 1 Coke from Koko Dome.</p>
+                    <pre>const restaurant = restaurants[0];
+const swallow = restaurant.menu.swallow[1];
+const meat = restaurant.menu.meats[1];
+const drink = restaurant.menu.drinks[2];</pre>
+                </div>
+            </div>
+            <button onclick="showRestaurantOrder()" style="margin-top: 20px;">Generate Order</button>
+            <div id="restaurantOrderResult" class="result"></div>
+        </section>
+
+        <section id="operators">
+            <h2>7. Difference between Comparison and Logical Operators</h2>
+            <p class="note">We use these to check conditions in JavaScript.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Comparison Operators</h3>
+                    <p>Compare two values and give true or false.</p>
+                    <pre>let a = 10;
+let b = 5;
+
+console.log(a > b); // true
+console.log(a == b); // false
+console.log(a!= b); // true</pre>
+                </div>
+
+                <div class="card">
+                    <h3>Logical Operators</h3>
+                    <p>Join two conditions together.</p>
+                    <pre>let age = 20;
+var hasCard = true;
+
+console.log(age > 18 && hasCard); // true
+console.log(age < 18 || hasCard); // true
+console.log(!hasCard); // false</pre>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 16px;">
+                <h3>Simple Example</h3>
+                <p>Check if you can enter a club. You need to be 18 and above AND have an ID card.</p>
+                <pre>var personAge = 19;
+var personHasID = true;
+
+if(personAge >= 18 && personHasID){
+  console.log("You can enter the club");
+} else {
+  console.log("You cannot enter the club");
+}</pre>
+
+                <button onclick="checkClub()">Check It</button>
+                <div id="clubResult" class="result"></div>
+            </div>
+        </section>
+    </main>
+
+
+    <script>
+        const ibadanRestaurants = [
+            { name: "Amala Sky", location: "Bodija, Ibadan", menu: { swallow: ["Amala", "Eba", "Pounded Yam", "Fufu"], meats: ["Goat Meat", "Beef", "Shaki", "Ponmo"], drinks: ["Coke", "Pepsi", "Zobo", "Water"] } },
+            { name: "Tantalizers", location: "Dugbe, Ibadan", menu: { swallow: ["Eba", "Semo", "Wheat"], meats: ["Chicken", "Beef", "Fish"], drinks: ["Sprite", "Fanta", "Chapman", "Juice"] } },
+            { name: "Mama Ope Restaurant", location: "Ring Road, Ibadan", menu: { swallow: ["Amala", "Fufu", "Lafun"], meats: ["Goat Meat", "Fish", "Chicken", "Intestine"], drinks: ["Coke", "Pepsi", "Malt", "Water"] } },
+            { name: "Koko Dome", location: "Cocoa House, Dugbe, Ibadan", menu: { swallow: ["Pounded Yam", "Eba", "Fufu"], meats: ["Beef", "Turkey", "Catfish"], drinks: ["Chapman", "Smirnoff Ice", "Coke", "Water"] } },
+            { name: "Mr Bigg's", location: "Challenge, Ibadan", menu: { swallow: ["Semo", "Eba", "Fufu"], meats: ["Chicken", "Beef", "Turkey"], drinks: ["Fanta", "Pepsi", "Water", "Malt"] } }
+        ];
+
+        function showInnerHTML() {
+            document.getElementById("innerHTMLResult").innerHTML = "<strong>Hello!</strong> This supports HTML tags.";
+        }
+
+        function showTextContent() {
+            document.getElementById("textContentResult").textContent = "This is plain text. <b>Tags</b> show as text.";
+        }
+
+        function showDocumentWrite() {
+            const frame = document.getElementById("writeFrame");
+            const doc = frame.contentWindow.document;
+            doc.open();
+            doc.write("<p style='padding:12px;font-family:Inter;color:#1e40af;'>Output from document.write()</p>");
+            doc.close();
+        }
+
+        function showAlert() {
+            alert("This is an alert message!");
+        }
+
+        function showConsoleLog() {
+            console.log("Debug message sent to console");
+            document.getElementById("consoleResult").textContent = "Check your browser console";
+        }
+
+        function runVariableDemo() {
+            let output = "";
+
+            var student = "Grace";
+            var student = "David";
+            output += "<strong>var:</strong> Redeclared successfully. Final value: " + student + "<br>";
+
+            let age = 18;
+            if (true) {
+                let age = 21;
+                output += "<strong>let:</strong> Inside block: " + age + "<br>";
+            }
+            output += "<strong>let:</strong> Outside block: " + age + "<br>";
+
+            const school = "Bright College";
+            output += "<strong>const:</strong> Initial value: " + school + "<br>";
+
+            try {
+                school = "New College";
+            } catch (e) {
+                output += "<strong>const:</strong> Error on reassignment - Assignment to constant variable";
+            }
+
+            document.getElementById("variableDemoResult").innerHTML = output;
+        }
+
+        function showRestaurantOrder() {
+
+            const restaurant = ibadanRestaurants.find(r => r.name === "Koko Dome");
+            const swallow = restaurant.menu.swallow[1]; // Eba
+            const meat = restaurant.menu.meats[1]; // Turkey
+            const drink = restaurant.menu.drinks[2]; // Coke
+
+            document.getElementById("restaurantOrderResult").textContent =
+                `Order: 2 wraps of ${swallow}, 1 piece of ${meat}, and 1 Coke from ${restaurant.name}, ${restaurant.location}.`;
+        }
+    </script>
+    <section>
+        <h2>8. Ternary Expression for Grading</h2>
+        <p class="note">A ternary expression is a short way to write if/else. It checks a condition and gives one of two
+            results.</p>
+
+        <div class="card">
+            <h3>Grade a Student Score</h3>
+            <p>If score is 70 and above = A, 60-69 = B, 50-59 = C, below 50 = F.</p>
+            <pre>
+var score = 85;
+
+var grade = score >= 70 ? "A" :
+            score >= 60 ? "B" :
+            score >= 50 ? "C" : "F";
+
+console.log(grade); // A
+    </pre>
+
+            <input type="number" id="scoreInput" value="75"
+                style="padding: 8px; margin: 5px; border: 1px solid var(--border); border-radius: 6px;">
+            <button onclick="checkGrade()">Check Grade</button>
+            <div id="gradeResult" class="result"></div>
+        </div>
+    </section>
+    <footer>
+        Bakare Opeyemi Built it for JavaScript practice © 2026
+    </footer>
+
+</body>
+
+</html>

@@ -2,593 +2,309 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Fundamentals - Assignment</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The History of JavaScript</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --js-yellow: #f7df1e;
+      --border: #334155;
+    }
 
-        :root {
-            --bg: #f7f9fc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --text-muted: #64748b;
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --border: #e2e8f0;
-            --accent-bg: #eff6ff;
-            --code-bg: #0f172a;
-            --code-text: #e2e8f0;
-            --radius: 12px;
-            --shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-            --shadow-hover: 0 8px 24px rgba(15, 23, 42, 0.12);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.7;
-            color: var(--text);
-            background: var(--bg);
-            -webkit-font-smoothing: antialiased;
-        }
 
-        header {
-            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-            color: white;
-            padding: 64px 20px;
-            text-align: center;
-        }
+    .navbar {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 5%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        header h1 {
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 700;
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
-        }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        header p {
-            font-size: 18px;
-            color: #dbeafe;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
 
-        main {
-            max-width: 1200px;
-            margin: 48px auto;
-            padding: 0 20px;
-        }
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--js-yellow);
+      color: #000;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-family: 'Fira Code', monospace;
+    }
 
-        section {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px;
-            margin-bottom: 32px;
-            box-shadow: var(--shadow);
-            transition: box-shadow 0.2s ease;
-        }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
 
-        section:hover {
-            box-shadow: var(--shadow-hover);
-        }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
 
-        h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            letter-spacing: -0.01em;
-        }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
 
-        h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
+    
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 5%;
+    }
 
-        .note {
-            color: var(--text-muted);
-            font-size: 15px;
-            margin-bottom: 24px;
-        }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-        }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--text), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .card {
-            padding: 20px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: #fafcff;
-            transition: transform 0.15s ease, border-color 0.15s ease;
-        }
+    h2 {
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin: 2rem 0 1rem 0;
+      font-weight: 600;
+    }
 
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-        }
+    p {
+      margin-bottom: 1.2rem;
+      color: var(--text);
+    }
 
-        code {
-            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-            background: #f1f5f9;
-            color: #dc2626;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.92em;
-            font-weight: 600;
-        }
+    .highlight {
+      background: rgba(59, 130, 246, 0.15);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
 
-        pre {
-            background: var(--code-bg);
-            color: var(--code-text);
-            padding: 16px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin-top: 12px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+    .timeline {
+      border-left: 2px solid var(--border);
+      margin: 2rem 0;
+      padding-left: 1.5rem;
+    }
 
-        button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 11px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
+    .timeline-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
 
-        button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.95rem;
+      top: 0.3rem;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
 
-        button:active {
-            transform: translateY(0);
-        }
+    .year {
+      font-weight: 700;
+      color: var(--js-yellow);
+      font-family: 'Fira Code', monospace;
+    }
 
-        button:focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
+    code {
+      background: #0f172a;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: #7dd3fc;
+    }
 
-        .result {
-            margin-top: 14px;
-            padding: 14px 16px;
-            background: var(--accent-bg);
-            border-left: 4px solid var(--primary);
-            border-radius: 6px;
-            min-height: 48px;
-            font-size: 15px;
-        }
+    
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
 
-        .document-write-frame {
-            width: 100%;
-            height: 80px;
-            margin-top: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: white;
-        }
+   
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
 
-        footer {
-            text-align: center;
-            padding: 32px 20px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
+      h1 {
+        font-size: 2rem;
+      }
 
-        @media (max-width: 768px) {
-            section {
-                padding: 24px 20px;
-            }
+      .card {
+        padding: 1.5rem;
+      }
+    }
 
-            h2 {
-                font-size: 24px;
-            }
-        }
-    </style>
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      transition: 0.3s;
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <h1>JavaScript Fundamentals</h1>
-        <p>Reserved keywords, output methods, variables, data types, NaN, undefined, and object practice</p>
-    </header>
-
-    <main>
-        <section>
-            <h2>1. 15 Reserved JavaScript Keywords</h2>
-            <p class="note">Keywords are words JavaScript reserves for syntax. You cannot use them as variable names.
-            </p>
-            <div class="grid">
-                <div class="card">
-                    <h3><code>var</code></h3>
-                    <p>Function-scoped variable declaration. Can be redeclared.</p>
-                </div>
-                <div class="card">
-                    <h3><code>let</code></h3>
-                    <p>Block-scoped variable. Can be reassigned but not redeclared.</p>
-                </div>
-                <div class="card">
-                    <h3><code>const</code></h3>
-                    <p>Block-scoped constant. Cannot be reassigned.</p>
-                </div>
-                <div class="card">
-                    <h3><code>if</code></h3>
-                    <p>Executes code if condition is true.</p>
-                </div>
-                <div class="card">
-                    <h3><code>else</code></h3>
-                    <p>Executes code if condition is false.</p>
-                </div>
-                <div class="card">
-                    <h3><code>for</code></h3>
-                    <p>Creates a loop that runs a set number of times.</p>
-                </div>
-                <div class="card">
-                    <h3><code>while</code></h3>
-                    <p>Loops while a condition is true.</p>
-                </div>
-                <div class="card">
-                    <h3><code>function</code></h3>
-                    <p>Declares a reusable code block.</p>
-                </div>
-                <div class="card">
-                    <h3><code>return</code></h3>
-                    <p>Returns a value from a function.</p>
-                </div>
-                <div class="card">
-                    <h3><code>class</code></h3>
-                    <p>Defines a blueprint for objects.</p>
-                </div>
-                <div class="card">
-                    <h3><code>new</code></h3>
-                    <p>Creates an instance of an object.</p>
-                </div>
-                <div class="card">
-                    <h3><code>try</code></h3>
-                    <p>Tests code for errors.</p>
-                </div>
-                <div class="card">
-                    <h3><code>catch</code></h3>
-                    <p>Handles errors from try block.</p>
-                </div>
-                <div class="card">
-                    <h3><code>switch</code></h3>
-                    <p>Evaluates an expression against multiple cases.</p>
-                </div>
-                <div class="card">
-                    <h3><code>break</code></h3>
-                    <p>Exits a loop or switch statement.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>2. 6 JavaScript Output Methods</h2>
-            <p class="note">Methods to display data to users or developers.</p>
-            <div class="grid">
-                <div class="card">
-                    <h3>1. <code>innerHTML</code></h3>
-                    <p>Renders HTML inside an element.</p>
-                    <button onclick="showInnerHTML()">Try it</button>
-                    <div id="innerHTMLResult" class="result"></div>
-                </div>
-
-                <div class="card">
-                    <h3>2. <code>textContent</code></h3>
-                    <p>Inserts plain text, ignores HTML tags.</p>
-                    <button onclick="showTextContent()">Try it</button>
-                    <div id="textContentResult" class="result"></div>
-                </div>
-
-                <div class="card">
-                    <h3>3. <code>document.write()</code></h3>
-                    <p>Writes directly to document. Avoid in production.</p>
-                    <button onclick="showDocumentWrite()">Try it</button>
-                    <iframe id="writeFrame" class="document-write-frame" title="document.write demo"></iframe>
-                </div>
-
-                <div class="card">
-                    <h3>4. <code>alert()</code></h3>
-                    <p>Shows a modal popup message.</p>
-                    <button onclick="showAlert()">Try it</button>
-                    <div class="result">Click to trigger alert popup</div>
-                </div>
-
-                <div class="card">
-                    <h3>5. <code>console.log()</code></h3>
-                    <p>Logs data to browser console for debugging.</p>
-                    <button onclick="showConsoleLog()">Try it</button>
-                    <div id="consoleResult" class="result">Open DevTools to view console</div>
-                </div>
-
-                <div class="card">
-                    <h3>6. <code>window.print()</code></h3>
-                    <p>Opens print dialog for the page.</p>
-                    <button onclick="window.print()">Print Page</button>
-                    <div class="result">Opens your browser's print dialog</div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>3. <code>var</code> vs <code>let</code> vs <code>const</code></h2>
-            <p class="note"><code>let</code> and <code>const</code> are preferred in modern JS due to block scoping.</p>
-            <div class="grid">
-                <div class="card">
-                    <h3><code>var</code>: Redeclaration</h3>
-                    <p>Can be redeclared and is function-scoped.</p>
-                    <pre>var user = "Ada";
-var user = "John";
-console.log(user); // John</pre>
-                </div>
-
-                <div class="card">
-                    <h3><code>let</code>: Block Scope</h3>
-                    <p>Scoped to nearest { }. Cannot be redeclared.</p>
-                    <pre>var score = 10;
-if (true) {
-  var score2 = 20;
-  console.log(score2); // 20
-}
-console.log(score); // 10</pre>
-                </div>
-
-                <div class="card">
-                    <h3><code>const</code>: Fixed Value</h3>
-                    <p>Cannot be reassigned after it is set.</p>
-                    <pre>var country = "Nigeria";
-console.log(country); // Nigeria</pre>
-                </div>
-            </div>
-            <button onclick="runVariableDemo()" style="margin-top: 20px;">Run Demo</button>
-            <div id="variableDemoResult" class="result"></div>
-        </section>
-
-        <section>
-            <h2>4. Primitive vs Non-Primitive Data Types</h2>
-            <p class="note">Primitives store single values. Non-primitives store collections and references.</p>
-            <div class="grid">
-                <div class="card">
-                    <h3>Primitive Types</h3>
-                    <p>Simple values: string, number, boolean, null, undefined.</p>
-                    <pre>var name = "Ada";
-var age = 20;
-var isActive = true;</pre>
-                </div>
-
-                <div class="card">
-                    <h3>Non-Primitive Types</h3>
-                    <p>Complex values: object, array, function.</p>
-                    <pre>var student = { name: "Ada", age: 20 };
-var scores = [70, 85, 90];</pre>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 16px;">
-                <h3>Key Difference</h3>
-                <p>Primitives compare by value. Objects compare by reference.</p>
-                <pre>var a = 10;
-var b = 10;
-console.log(a == b); // true</pre>
-            </div>
-        </section>
-
-        <section>
-            <h2>5. <code>NaN</code> vs <code>undefined</code></h2>
-            <p class="note">Both mean no value, but for different reasons.</p>
-            <div class="grid">
-                <div class="card">
-                    <h3><code>undefined</code></h3>
-                    <p>Variable has no value yet.</p>
-                    <pre>var name;
-console.log(name); // undefined</pre>
-                </div>
-
-                <div class="card">
-                    <h3><code>NaN</code></h3>
-                    <p>Not a Number. Happens when math fails.</p>
-                    <pre>var result = "abc" * 2;
-console.log(result); // NaN</pre>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>6. Restaurant Order from Object Data</h2>
-            <p class="note">Access object data using dot and bracket notation.</p>
-            <div class="grid">
-                <div class="card">
-                    <h3>Data Source</h3>
-                    <pre>var restaurants = [
-  {
-    name: "Koko Dome",
-    location: "Cocoa House, Dugbe, Ibadan",
-    menu: {
-      swallow: ["Pounded Yam", "Eba", "Fufu"],
-      meats: ["Beef", "Turkey", "Catfish"],
-      drinks: ["Chapman", "Smirnoff Ice", "Coke", "Water"]
-    }
-  }
-];</pre>
-                </div>
-
-                <div class="card">
-                    <h3>My Order</h3>
-                    <p>2 wraps of Eba, 1 piece of Turkey, 1 Coke from Koko Dome.</p>
-                    <pre>var restaurant = restaurants[0];
-var swallow = restaurant.menu.swallow[1];
-var meat = restaurant.menu.meats[1];
-var drink = restaurant.menu.drinks[2];</pre>
-                </div>
-            </div>
-            <button onclick="showRestaurantOrder()" style="margin-top: 20px;">Generate Order</button>
-            <div id="restaurantOrderResult" class="result"></div>
-        </section>
-
-        <section>
-            <h2>7.Different between Comparison and Logical Operators</h2>
-            <p class="note">We use these to check conditions in JavaScript.</p>
-
-            <div class="grid">
-                <div class="card">
-                    <h3>Comparison Operators</h3>
-                    <p>Compare two values and give true or false.</p>
-                    <pre>var a = 10;
-var b = 5;
-
-console.log(a > b); // true
-console.log(a == b); // false
-console.log(a!= b); // true</pre>
-                </div>
-
-                <div class="card">
-                    <h3>Logical Operators</h3>
-                    <p>Join two conditions together.</p>
-                    <pre>var age = 20;
-var hasCard = true;
-
-console.log(age > 18 && hasCard); // true
-console.log(age < 18 || hasCard); // true
-console.log(!hasCard); // false</pre>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 16px;">
-                <h3>Simple Example</h3>
-                <p>Check if you can enter a club. You need to be 18 and above AND have an ID card.</p>
-                <pre>var personAge = 19;
-var personHasID = true;
-
-if(personAge >= 18 && personHasID){
-  console.log("You can enter the club");
-} else {
-  console.log("You cannot enter the club");
-}</pre>
-
-                <button onclick="checkClub()">Check It</button>
-                <div id="clubResult" class="result"></div>
-            </div>
-        </section>
-    </main>
 
 
-    <script>
-        const ibadanRestaurants = [
-            { name: "Amala Sky", location: "Bodija, Ibadan", menu: { swallow: ["Amala", "Eba", "Pounded Yam", "Fufu"], meats: ["Goat Meat", "Beef", "Shaki", "Ponmo"], drinks: ["Coke", "Pepsi", "Zobo", "Water"] } },
-            { name: "Tantalizers", location: "Dugbe, Ibadan", menu: { swallow: ["Eba", "Semo", "Wheat"], meats: ["Chicken", "Beef", "Fish"], drinks: ["Sprite", "Fanta", "Chapman", "Juice"] } },
-            { name: "Mama Ope Restaurant", location: "Ring Road, Ibadan", menu: { swallow: ["Amala", "Fufu", "Lafun"], meats: ["Goat Meat", "Fish", "Chicken", "Intestine"], drinks: ["Coke", "Pepsi", "Malt", "Water"] } },
-            { name: "Koko Dome", location: "Cocoa House, Dugbe, Ibadan", menu: { swallow: ["Pounded Yam", "Eba", "Fufu"], meats: ["Beef", "Turkey", "Catfish"], drinks: ["Chapman", "Smirnoff Ice", "Coke", "Water"] } },
-            { name: "Mr Bigg's", location: "Challenge, Ibadan", menu: { swallow: ["Semo", "Eba", "Fufu"], meats: ["Chicken", "Beef", "Turkey"], drinks: ["Fanta", "Pepsi", "Water", "Malt"] } }
-        ];
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">JS</div>
+        JavaScript
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">History</a></li>
+        <li><a href="documentation.html">Documentations</a></li>
+        <li><a href="calculator.html">calculator</a></li>
+      </ul>
 
-        function showInnerHTML() {
-            document.getElementById("innerHTMLResult").innerHTML = "<strong>Hello!</strong> This supports HTML tags.";
-        }
+      
 
-        function showTextContent() {
-            document.getElementById("textContentResult").textContent = "This is plain text. <b>Tags</b> show as text.";
-        }
 
-        function showDocumentWrite() {
-            const frame = document.getElementById("writeFrame");
-            const doc = frame.contentWindow.document;
-            doc.open();
-            doc.write("<p style='padding:12px;font-family:Inter;color:#1e40af;'>Output from document.write()</p>");
-            doc.close();
-        }
 
-        function showAlert() {
-            alert("This is an alert message!");
-        }
-
-        function showConsoleLog() {
-            console.log("Debug message sent to console");
-            document.getElementById("consoleResult").textContent = "Check your browser console";
-        }
-
-        function runVariableDemo() {
-            let output = "";
-
-            var student = "Grace";
-            var student = "David";
-            output += "<strong>var:</strong> Redeclared successfully. Final value: " + student + "<br>";
-
-            let age = 18;
-            if (true) {
-                let age = 21;
-                output += "<strong>let:</strong> Inside block: " + age + "<br>";
-            }
-            output += "<strong>let:</strong> Outside block: " + age + "<br>";
-
-            const school = "Bright College";
-            output += "<strong>const:</strong> Initial value: " + school + "<br>";
-
-            try {
-                school = "New College";
-            } catch (e) {
-                output += "<strong>const:</strong> Error on reassignment - Assignment to constant variable";
-            }
-
-            document.getElementById("variableDemoResult").innerHTML = output;
-        }
-
-        function showRestaurantOrder() {
-
-            const restaurant = ibadanRestaurants.find(r => r.name === "Koko Dome");
-            const swallow = restaurant.menu.swallow[1]; // Eba
-            const meat = restaurant.menu.meats[1]; // Turkey
-            const drink = restaurant.menu.drinks[2]; // Coke
-
-            document.getElementById("restaurantOrderResult").textContent =
-                `Order: 2 wraps of ${swallow}, 1 piece of ${meat}, and 1 Coke from ${restaurant.name}, ${restaurant.location}.`;
-        }
-    </script>
-    <section>
-        <h2>8. Ternary Expression for Grading</h2>
-        <p class="note">A ternary expression is a short way to write if/else. It checks a condition and gives one of two
-            results.</p>
-
+      <main class="container">
         <div class="card">
-            <h3>Grade a Student Score</h3>
-            <p>If score is 70 and above = A, 60-69 = B, 50-59 = C, below 50 = F.</p>
-            <pre>
-var score = 85;
+          <h1>The History of JavaScript</h1>
 
-var grade = score >= 70 ? "A" :
-            score >= 60 ? "B" :
-            score >= 50 ? "C" : "F";
+          <p>
+            JavaScript was created in <span class="highlight">1995 by Brendan Eich</span> while he was working at
+            Netscape
+            Communications. It was originally developed in just 10 days and first appeared in the Netscape Navigator
+            browser.
+          </p>
 
-console.log(grade); // A
-    </pre>
+          <p>
+            The language was initially called <span class="highlight">Mocha</span>, then changed to <span
+              class="highlight">LiveScript</span>, and finally named <span class="highlight">JavaScript</span> to
+            capitalize on Java's popularity at the time, despite the two languages being completely different.
+          </p>
 
-            <input type="number" id="scoreInput" value="75"
-                style="padding: 8px; margin: 5px; border: 1px solid var(--border); border-radius: 6px;">
-            <button onclick="checkGrade()">Check Grade</button>
-            <div id="gradeResult" class="result"></div>
+          <h2>Key Milestones</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="year">1995</span> - Brendan Eich creates Mocha in 10 days at Netscape. Renamed to LiveScript,
+              then JavaScript.
+            </div>
+            <div class="timeline-item">
+              <span class="year">1996</span> - Microsoft releases JScript, a reverse-engineered version for Internet
+              Explorer 3.
+            </div>
+            <div class="timeline-item">
+              <span class="year">1997</span> - JavaScript was standardized under the name <span
+                class="highlight">ECMAScript</span> by ECMA International to stop browser wars.
+            </div>
+            <div class="timeline-item">
+              <span class="year">2009</span> - <span class="highlight">ES5</span> released. Node.js created by Ryan
+              Dahl,
+              bringing JS to the server.
+            </div>
+            <div class="timeline-item">
+              <span class="year">2015</span> - <span class="highlight">ES6/ES2015</span> released. Major update adding
+              classes, modules, arrow functions <code>=></code>, let/const, and promises.
+            </div>
+            <div class="timeline-item">
+              <span class="year">2016+</span> - Yearly releases: ES2016, ES2017, etc. Adding features like
+              <code>async/await</code>, optional chaining, and more.
+            </div>
+          </div>
+
+          <h2>JavaScript Today</h2>
+          <p>
+            Since standardization, it has evolved through several versions, adding features like classes, modules, and
+            arrow functions. Today, JavaScript powers the web — used for front-end frameworks like <span
+              class="highlight">React</span>, <span class="highlight">Angular</span>, and <span
+              class="highlight">Vue</span>, mobile apps with React Native, and even on the server with <span
+              class="highlight">Node.js</span>.
+          </p>
+
+          <p>
+            From a 10-day hack to the world's most popular programming language — JS now runs everywhere from browsers
+            to
+            robots.
+          </p>
+
         </div>
-    </section>
-    <footer>
-     Bakare Opeyemi   Built it for JavaScript practice © 2026
-    </footer>
+      </main>
+
+      <footer>
+        © 2023 Opeyemi Bakare. All Rights Reserved.
+      </footer>
 
 </body>
 

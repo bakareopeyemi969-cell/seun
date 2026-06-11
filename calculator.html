@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Javascript Assignment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --js-yellow: #f7df1e;
+      --accent: #38bdf8;
+      --muted: #94a3b8;
+      --border: #334155;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #1a2332;
+      margin: 0;
+    }
+
+    .navbar {
+      background: #0f172a;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 3%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: white;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--js-yellow);
+      color: #000;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .calc-card {
+      background: #243044;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .op-btn {
+      padding: 14px;
+      font-size: 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      font-weight: 700;
+      transition: transform 0.1s, opacity 0.2s;
+    }
+
+    .op-btn:active {
+      transform: scale(0.95);
+    }
+
+    .op-btn:hover {
+      opacity: 0.9;
+    }
+
+    .add { background: #22c55e; }
+    .sub { background: #3b82f6; }
+    .mul { background: #ec4899; }
+    .div { background: #06b6d4; }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">JS</div>
+        JavaScript
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">History</a></li>
+        <li><a href="documentation.html">Documentations</a></li>
+        <li><a href="calculator.html" class="active">Calculator</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  
+    
+    <div class="w-full max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
+      
+      <!-- SIMPLE CALCULATOR -->
+      <div class="calc-card">
+        <h2 class="text-xl font-semibold text-cyan-400 mb-6 text-center">Simple Calculator</h2>
+        
+        <div class="flex justify-center items-center gap-3 mb-5">
+          <input type="number" id="num1" value="20" 
+            class="w-20 px-3 py-2 bg-slate-900 border-2 border-slate-600 rounded-lg text-white text-lg text-center focus:border-cyan-400 focus:outline-none">
+          <span id="current-op" class="text-white text-xl font-bold">+</span>
+          <input type="number" id="num2" value="4" 
+            class="w-20 px-3 py-2 bg-slate-900 border-2 border-slate-600 rounded-lg text-white text-lg text-center focus:border-cyan-400 focus:outline-none">
+        </div>
+
+        <p class="text-white text-center mb-3 font-medium">Operators</p>
+        <div class="grid grid-cols-2 gap-3 mb-5">
+          <button class="op-btn add" data-op="+" data-name="sum">+</button>
+          <button class="op-btn sub" data-op="-" data-name="difference">−</button>
+          <button class="op-btn mul" data-op="*" data-name="product">×</button>
+          <button class="op-btn div" data-op="/" data-name="quotient">÷</button>
+        </div>
+
+        <div id="result" class="bg-cyan-400 text-slate-900 px-3 py-2 rounded text-sm font-medium text-center min-h-8 flex items-center justify-center hidden">
+        </div>
+      </div>
+
+      <!-- RETIREMENT CALCULATOR -->
+      <div class="calc-card">
+        <h2 class="text-xl font-semibold text-cyan-400 mb-6 text-center">Retirement Calculator</h2>
+        
+        <div class="flex gap-2 mb-4">
+          <input 
+            type="number" 
+            id="birthYear" 
+            placeholder="Enter your birth year" 
+            value="1965"
+            min="1900" 
+            max="2026"
+            class="flex-1 px-4 py-3 bg-slate-900 border-2 border-slate-600 rounded-lg text-white text-base focus:border-cyan-400 focus:outline-none placeholder-slate-500"
+          >
+          <button 
+            onclick="calculateRetirement()" 
+            class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition active:scale-95"
+          >
+            Check
+          </button>
+        </div>
+        
+        <p class="text-white text-center mb-2">Retire:</p>
+        <div id="retirementResult" class="bg-cyan-400 text-slate-900 px-3 py-2 rounded text-sm font-medium text-center min-h-8 flex items-center justify-center hidden">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // SIMPLE CALCULATOR
+    const num1 = document.getElementById('num1');
+    const num2 = document.getElementById('num2');
+    const result = document.getElementById('result');
+    const currentOp = document.getElementById('current-op');
+    const buttons = document.querySelectorAll('.op-btn');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const op = btn.attributes['data-op'].value; 
+        const opName = btn.attributes['data-name'].value;
+        
+        const a = parseFloat(num1.value);
+        const b = parseFloat(num2.value);
+        
+        if (isNaN(a) || isNaN(b)) {
+          result.classList.remove('hidden');
+          result.textContent = 'Please enter valid numbers';
+          return;
+        }
+        
+        let calcResult;
+        switch(op) {
+          case '+': calcResult = a + b; break;
+          case '-': calcResult = a - b; break;
+          case '*': calcResult = a * b; break;
+          case '/': 
+            if (b === 0) {
+              result.classList.remove('hidden');
+              result.textContent = 'Cannot divide by zero';
+              return;
+            }
+            calcResult = a / b; 
+            break;
+        }
+        
+        currentOp.textContent = op;
+        result.classList.remove('hidden');
+        result.textContent = `The ${opName} of ${a} and ${b} is ${calcResult}`;
+      });
+    });
+
+    // RETIREMENT CALCULATOR
+    function calculateRetirement() {
+      const birthYearInput = document.getElementById('birthYear');
+      const resultDiv = document.getElementById('retirementResult');
+      const birthYear = parseInt(birthYearInput.value);
+      const currentYear = new Date().getFullYear();
+      const retirementAge = 65;
+      
+      if (isNaN(birthYear) || birthYear < 1900 || birthYear > currentYear) {
+        resultDiv.classList.remove('hidden');
+        resultDiv.textContent = 'Please enter a valid birth year';
+        return;
+      }
+
+      const age = currentYear - birthYear;
+      const yearsToRetire = retirementAge - age;
+      let message = '';
+
+      if (yearsToRetire === 0) {
+        message = `You are ${age} years old, you can retire now`;
+      } else if (yearsToRetire === 1) {
+        message = `You are ${age} years old, you will retire next year`;
+      } else if (yearsToRetire === -1) {
+        message = `You are ${age} years old, you supposed to have retired 1 years ago`;
+      } else if (yearsToRetire < -1) {
+        const yearsOver = Math.abs(yearsToRetire);
+        message = `You are ${age} years old, you supposed to have retired ${yearsOver} years ago`;
+      } else {
+        message = `You are ${age} years old, remain ${yearsToRetire} more years for you to retire`;
+      }
+
+      resultDiv.classList.remove('hidden');
+      resultDiv.textContent = message;
+    }
+
+    document.getElementById('birthYear').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') calculateRetirement();
+    });
+  </script>
+</body>
+</html>
