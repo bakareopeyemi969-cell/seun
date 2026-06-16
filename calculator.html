@@ -216,12 +216,12 @@
   .calc-row input{ width: 120px; text-align: center; font-size: 1.2rem }
   .calc-row span{ font-size: 1.5rem; font-weight: 900; color: var(--accent) }
 
-  .nav-link{
+  .nav-links{
  display: flex;
  gap:2rem;
  list-style-type: none;
   }
-  .nav-link a {
+  .nav-links a {
 color: #94a3b8;
 text-decoration: none;
 font-size: 0.9rem;
@@ -229,11 +229,16 @@ font-weight: 700;
 
   }
 
-  .nav-link a:hover,
-  .nav-link a.active{
+  .nav-links a:hover,
+  .nav-links a.active{
     color: #06b6d4;
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
 </style>
 </head>
 <body>
@@ -243,7 +248,7 @@ font-weight: 700;
         <div class="logo-icon">JS</div>
         JavaScript
       </div>
-      <ul class="nav-link">
+      <ul class="nav-links">
         <li><a href="index.html">History</a></li>
         <li><a href="documentation.html">Documentation</a></li>
         <li><a href="calculator.html" class="active">Calculator</a></li>
