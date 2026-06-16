@@ -1,103 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Javascript Assignment</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #1a2332;
-      margin: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Assignment - Pro Calculators</title>
+<style>
+  :root{
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card-2: #243044;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent2: #3b82f6;
+    --ok: #22c55e;
+  }
 
-    .navbar {
-      background: #0f172a;
-      border-bottom: 1px solid #334155;
-      padding: 1rem 3%;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  *{box-sizing:border-box; margin:0; padding:0}
+  
+  body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(1000px 600px at 15% -10%, #1e293b 0%, transparent 60%),
+                var(--bg);
+    color: var(--text);
+    min-height:100vh;
+  }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  .navbar{
+    background: rgba(15,23,42,.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #334155;
+    padding: 1rem 3%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-      font-size: 1.25rem;
-      color: white;
-    }
 
-    .logo-icon {
-      width: 28px;
-      height: 28px;
-      background: #f7df1e;
-      color: #000;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-family: monospace;
-    }
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+  .nav-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo{
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: white;
+  }
+  .logo-icon{
+    width: 32px;
+    height: 32px;
+    background: #f7df1e;
+    color: #000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+  }
 
-    .nav-links a {
-      color: #94a3b8;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
+  .container{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+  h1{
+    text-align: center;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #38bdf8, #a78bfa);
+    
+    -webkit-text-fill-color: transparent;
+  }
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px){ 
+    .grid{grid-template-columns: 1fr}
+    .nav-links{display: none}
+  }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: #38bdf8;
-    }
+  .card{
+    background: linear-gradient(180deg, var(--card), var(--card-2));
+    border: 1px solid #334155;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    transition: transform .2s;
+  }
+  .card:hover{ transform: translateY(-4px) }
+  .card h3{
+    text-align: center;
+    color: var(--accent);
+    margin-bottom: 18px;
+    font-size: 1.3rem;
+  }
+  .pill{
+    display:block;
+    text-align:center;
+    font-size: .85rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+    padding: 6px 12px;
+    background: rgba(56,189,248,.1);
+    border-radius: 999px;
+    border: 1px solid rgba(56,189,248,.3);
+  }
 
-    .calc-card {
-      background: #243044;
-      border: 2px solid #334155;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
+  input, select, button{
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border-radius: 12px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  input:focus, select:focus{
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(56,189,248,.25);
+  }
 
-    .op-btn {
-      padding: 14px;
-      font-size: 24px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      color: white;
-      font-weight: 700;
-    }
+  button{
+    background: linear-gradient(135deg, var(--accent2), #2563eb);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37,99,235,.4);
+  }
+  .op-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 12px 0 18px;
+  }
+  .op-btn{
+    padding: 16px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    border-radius: 12px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .add{ background: linear-gradient(135deg, #22c55e, #15803d) }
+  .sub{ background: linear-gradient(135deg, #3b82f6, #1d4ed8) }
+  .mul{ background: linear-gradient(135deg, #ec4899, #be185d) }
+  .div{ background: linear-gradient(135deg, #06b6d4, #0891b2) }
 
-    .add { background: #22c55e; }
-    .sub { background: #3b82f6; }
-    .mul { background: #ec4899; }
-    .div { background: #06b6d4; }
+  /* FIXED RESULT BOX - 2 COLUMN GRID */
+  .result-box{
+    background: #0b1222;
+    border: 2px dashed var(--accent);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 15px;
+    min-height: 100px;
+    color: var(--ok);
+    font-size: 1rem;
+  }
+  .result-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+    align-items: start;
+  }
+  .result-item{
+    display: flex;
+    flex-direction: column;
+  }
+  .result-item.full{
+    grid-column: 1 / -1;
+    padding-top: 12px;
+    margin-top: 8px;
+    border-top: 1px solid #334155;
+    align-items: center;
+  }
+  .result-label{
+    color: var(--muted);
+    font-size: .85rem;
+    margin-bottom: 4px;
+  }
+  .result-value{
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--ok);
+    word-break: break-word;
+  }
+  .result-value.accent{
+    color: var(--accent);
+    font-size: 1.25rem;
+  }
+  .hidden{ display: none !important }
 
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-    }
-  </style>
+  .calc-row{
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .calc-row input{ width: 120px; text-align: center; font-size: 1.2rem }
+  .calc-row span{ font-size: 1.5rem; font-weight: 900; color: var(--accent) }
+
+  .nav-link{
+ display: flex;
+ gap:2rem;
+ list-style-type: none;
+  }
+  .nav-link a {
+color: #94a3b8;
+text-decoration: none;
+font-size: 0.9rem;
+font-weight: 700;
+
+  }
+
+  .nav-link a:hover,
+  .nav-link a.active{
+    color: #06b6d4;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
   <nav class="navbar">
@@ -106,171 +243,221 @@
         <div class="logo-icon">JS</div>
         JavaScript
       </div>
-      <ul class="nav-links">
+      <ul class="nav-link">
         <li><a href="index.html">History</a></li>
-        <li><a href="documentation.html">Documentations</a></li>
+        <li><a href="documentation.html">Documentation</a></li>
         <li><a href="calculator.html" class="active">Calculator</a></li>
       </ul>
     </div>
   </nav>
 
-  
-    <div class="w-full max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
+  <div class="container">
+    <h1>JavaScript Assignment</h1>
+    
+    <div class="grid">
       
-      
-      <div class="calc-card">
-        <h2 class="text-xl font-semibold text-cyan-400 mb-6 text-center">Simple Calculator</h2>
-        
-        <div class="flex justify-center items-center gap-3 mb-5">
-          <input type="number" id="num1" value="" 
-            class="w-20 px-3 py-2 bg-slate-900 border-2 border-slate-600 rounded-lg text-white text-lg text-center">
-          <span id="current-op" class="text-white text-xl font-bold">+</span>
-          <input type="number" id="num2" value="" 
-            class="w-20 px-3 py-2 bg-slate-900 border-2 border-slate-600 rounded-lg text-white text-lg text-center">
+      <!-- SIMPLE CALCULATOR -->
+      <div class="card">
+        <h3>Simple Calculator</h3>
+        <div class="calc-row">
+          <input type="number" id="num1" value="20">
+          <span id="current-op"></span>
+          <input type="number" id="num2" value="4">
         </div>
-
-        <p class="text-white text-center mb-3 font-medium">Operators</p>
-        <div class="grid grid-cols-2 gap-3 mb-5">
+        <p style="text-align:center; color:var(--muted); margin-bottom:10px">Operators</p>
+        <div class="op-grid">
           <button class="op-btn add" onclick="doSum()">+</button>
           <button class="op-btn sub" onclick="doSub()">−</button>
           <button class="op-btn mul" onclick="doMul()">×</button>
           <button class="op-btn div" onclick="doDiv()">÷</button>
         </div>
-
-        <div id="result" class="bg-cyan-400 text-slate-900 px-3 py-2 rounded text-sm font-medium text-center hidden">
-        </div>
+        <div id="result" class="result-box hidden"></div>
       </div>
 
-      
-      <div class="calc-card">
-        <h2 class="text-xl font-semibold text-cyan-400 mb-6 text-center">Retirement Calculator</h2>
-        
-        <div class="flex gap-2 mb-4">
-          <input 
-            type="number" 
-            id="birthYear" 
-            placeholder="Enter your birth year" 
-            value=""
-            class="flex-1 px-4 py-3 bg-slate-900 border-2 border-slate-600 rounded-lg text-white text-base"
-          >
-          <button 
-            onclick="checkRetirement()" 
-            class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg"
-          >
-            Check
-          </button>
+      <!-- RETIREMENT CALCULATOR -->
+      <div class="card">
+        <h3>Retirement Calculator</h3>
+        <div style="display:flex; gap:10px">
+          <input type="number" id="birthYear" placeholder="Enter your birth year" value="">
+          <button onclick="checkRetirement()" style="width:auto; padding:14px 24px">Check</button>
         </div>
-        
-        <p class="text-white text-center mb-2">Retire:</p>
-        <div id="retirementResult" class="bg-cyan-400 text-slate-900 px-3 py-2 rounded text-sm font-medium text-center hidden">
-        </div>
+        <p style="text-align:center; color:var(--muted); margin:12px 0 6px">Retire:</p>
+        <div id="retirementResult" class="result-box hidden"></div>
+      </div>
+
+      <!-- INTEREST CALCULATOR -->
+      <div class="card">
+        <h3>Interest Calculator</h3>
+        <span class="pill">ROI: 1% per month • Currency: ₦ Naira • Max 12 months</span>
+        <input type="number" id="interestAmount" placeholder="Enter Amount ₦" min="0" step="0.01">
+        <select id="interestDuration">
+          <option value="">Select Duration</option>
+          <option value="1">1 Month</option>
+          <option value="3">3 Months</option>
+          <option value="6">6 Months</option>
+          <option value="12">12 Months</option>
+        </select>
+        <button onclick="calcInterest()">Calculate Interest</button>
+        <div class="result-box" id="interestResult"><span style="color:var(--muted)">Calculate Interest</span></div>
+      </div>
+
+      <!-- LOAN CALCULATOR -->
+      <div class="card">
+        <h3>Loan Calculator</h3>
+        <span class="pill">Interest 1% monthly on principal • Currency: ₦ Naira</span>
+        <input type="number" id="loanAmount" placeholder="Enter Loan Amount ₦" min="0" step="0.01">
+        <select id="loanDuration">
+          <option value="">Select Duration</option>
+          <option value="1">1 Month</option>
+          <option value="3">3 Months</option>
+          <option value="6">6 Months</option>
+          <option value="12">12 Months</option>
+        </select>
+        <button onclick="calcLoan()">Calculate Loan</button>
+        <div class="result-box" id="loanResult"><span style="color:var(--muted)">Calculate Loan</span></div>
       </div>
 
     </div>
   </div>
 
-  <script>
-    // SIMPLE CALCULATOR 
-    function doSum() {
-      var a = document.getElementById("num1").value;
-      var b = document.getElementById("num2").value;
-      var result = parseFloat(a) + parseFloat(b);
-      
-      document.getElementById("current-op").innerHTML = "+";
-      
-      if (isNaN(result)) {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "Please enter numbers";
-      } else {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "The sum of " + a + " and " + b + " is " + result;
-      }
-    }
+<script>
+  const fmt = n => '₦' + Number(n || 0).toLocaleString('en-NG', {maximumFractionDigits:2});
 
-    function doSub() {
-      var a = document.getElementById("num1").value;
-      var b = document.getElementById("num2").value;
-      var result = parseFloat(a) - parseFloat(b);
-      
-      document.getElementById("current-op").innerHTML = "-";
-      
-      if (isNaN(result)) {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "Please enter numbers";
-      } else {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "The difference of " + a + " and " + b + " is " + result;
-      }
-    }
+  function showResult(id, html){
+    const el = document.getElementById(id);
+    el.classList.remove('hidden');
+    el.innerHTML = html;
+  }
+  
+  function doSum(){
+    let a = parseFloat(document.getElementById("num1").value);
+    let b = parseFloat(document.getElementById("num2").value);
+    document.getElementById("current-op").innerHTML = "+";
+    showResult("result", `<div style="text-align:center">The sum of ${a} and ${b} is <b>${a+b}</b></div>`);
+  }
+  function doSub(){
+    let a = parseFloat(document.getElementById("num1").value);
+    let b = parseFloat(document.getElementById("num2").value);
+    document.getElementById("current-op").innerHTML = "−";
+    showResult("result", `<div style="text-align:center">The difference of ${a} and ${b} is <b>${a-b}</b></div>`);
+  }
+  function doMul(){
+    let a = parseFloat(document.getElementById("num1").value);
+    let b = parseFloat(document.getElementById("num2").value);
+    document.getElementById("current-op").innerHTML = "×";
+    showResult("result", `<div style="text-align:center">The product of ${a} and ${b} is <b>${a*b}</b></div>`);
+  }
+  function doDiv(){
+    let a = parseFloat(document.getElementById("num1").value);
+    let b = parseFloat(document.getElementById("num2").value);
+    document.getElementById("current-op").innerHTML = "÷";
+    if(b == 0) showResult("result", `<div style="text-align:center">Cannot divide by zero</div>`);
+    else showResult("result", `<div style="text-align:center">The quotient of ${a} and ${b} is <b>${(a/b).toFixed(2)}</b></div>`);
+  }
 
-    function doMul() {
-      var a = document.getElementById("num1").value;
-      var b = document.getElementById("num2").value;
-      var result = parseFloat(a) * parseFloat(b);
-      
-      document.getElementById("current-op").innerHTML = "×";
-      
-      if (isNaN(result)) {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "Please enter numbers";
-      } else {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "The product of " + a + " and " + b + " is " + result;
-      }
-    }
+  function checkRetirement(){
+    let birthYear = parseInt(document.getElementById("birthYear").value);
+    let currentYear = 2026;
+    let retirementAge = 65;
+    let age = currentYear - birthYear;
+    let yearsLeft = retirementAge - age;
+    let msg = "";
+    
+    if(!birthYear) msg = "Please enter your birth year";
+    else if(birthYear > currentYear) msg = "Birth year cannot be in the future";
+    else if(yearsLeft == 0) msg = `You are ${age} years old, you can retire now`;
+    else if(yearsLeft == 1) msg = `You are ${age} years old, you will retire next year`;
+    else if(yearsLeft == -1) msg = `You are ${age} years old, you should have retire last year`;
+    else if(yearsLeft < 0) msg = `You are ${age} years old, you should have retired ${Math.abs(yearsLeft)} years ago`;
+    else msg = `You are ${age} years old, ${yearsLeft} more years to retirement`;
+    
+    showResult("retirementResult", `<div style="text-align:center">${msg}</div>`);
+  }
 
-    function doDiv() {
-      var a = document.getElementById("num1").value;
-      var b = document.getElementById("num2").value;
-      
-      document.getElementById("current-op").innerHTML = "÷";
-      
-      if (b == 0) {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "Cannot divide by zero";
-      } else if (isNaN(a) || isNaN(b)) {
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "Please enter numbers";
-      } else {
-        var result = parseFloat(a) / parseFloat(b);
-        document.getElementById("result").classList.remove("hidden");
-        document.getElementById("result").innerHTML = "The quotient of " + a + " and " + b + " is " + result;
-      }
+  // INTEREST CALCULATOR - FIXED LAYOUT
+  function calcInterest(){
+    let amount = parseFloat(document.getElementById('interestAmount').value);
+    let months = parseInt(document.getElementById('interestDuration').value);
+    let roi = 0.01;
+    
+    if(isNaN(amount) || amount <= 0 || !months){
+      document.getElementById('interestResult').innerHTML = '<span style="color:var(--muted)">Please enter valid amount + duration</span>';
+      return;
     }
+    
+    let interest = amount * roi * months;
+    let total = amount + interest;
+    
+    document.getElementById('interestResult').innerHTML = `
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="result-label">Principal</span>
+          <span class="result-value">${fmt(amount)}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Duration</span>
+          <span class="result-value">${months} month(s)</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Interest @1%/month</span>
+          <span class="result-value">${fmt(interest)}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Monthly Rate</span>
+          <span class="result-value">1%</span>
+        </div>
+        <div class="result-item full">
+          <span class="result-label">Total Payout</span>
+          <span class="result-value accent">${fmt(total)}</span>
+        </div>
+      </div>
+    `;
+  }
 
-    // RETIREMENT CALCULATOR 
-    function checkRetirement() {
-      var birthYear = document.getElementById("birthYear").value;
-      var currentYear = 2026;
-      var retirementAge = 65;
-      
-      var age = currentYear - birthYear;
-      var yearsLeft = retirementAge - age;
-      
-      if (birthYear == "") {
-        document.getElementById("retirementResult").classList.remove("hidden");
-        document.getElementById("retirementResult").innerHTML = "Please enter your birth year";
-      } else if (birthYear > currentYear) {
-        document.getElementById("retirementResult").classList.remove("hidden");
-        document.getElementById("retirementResult").innerHTML = "Birth year cannot be in the future";
-      } else if (yearsLeft == 0) {
-        document.getElementById("retirementResult").classList.remove("hidden");
-        document.getElementById("retirementResult").innerHTML = "You are " + age + " years old, you can retire now";
-      } else if (yearsLeft == 1) {
-        document.getElementById("retirementResult").classList.remove("hidden");
-        document.getElementById("retirementResult").innerHTML = "You are " + age + " years old, you will retire next year";
-      } else if (yearsLeft == -1) {
-        document.getElementById("retirementResult").classList.remove("hidden");
-        document.getElementById("retirementResult").innerHTML = "You are " + age + " years old, you supposed to have retired 1 years ago";
-      } else if (yearsLeft < -1) {
-        var yearsOver = yearsLeft * -1;
-        document.getElementById("retirementResult").classList.remove("hidden");
-        document.getElementById("retirementResult").innerHTML = "You are " + age + " years old, you supposed to have retired " + yearsOver + " years ago";
-      } else {
-        document.getElementById("retirementResult").classList.remove("hidden");
-        document.getElementById("retirementResult").innerHTML = "You are " + age + " years old, remain " + yearsLeft + " more years for you to retire";
-      }
+  // LOAN CALCULATOR - FIXED LAYOUT
+  function calcLoan(){
+    let amount = parseFloat(document.getElementById('loanAmount').value);
+    let months = parseInt(document.getElementById('loanDuration').value);
+    let roi = 0.01;
+    
+    if(isNaN(amount) || amount <= 0 || !months){
+      document.getElementById('loanResult').innerHTML = '<span style="color:var(--muted)">Please enter valid loan amount + duration</span>';
+      return;
     }
-  </script>
+    
+    let interest = amount * roi * months;
+    let totalPayback = amount + interest;
+    let monthlyPayment = totalPayback / months;
+    
+    document.getElementById('loanResult').innerHTML = `
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="result-label">Loan Principal</span>
+          <span class="result-value">${fmt(amount)}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Duration</span>
+          <span class="result-value">${months} month(s)</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Interest @1%/month</span>
+          <span class="result-value">${fmt(interest)}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Monthly Rate</span>
+          <span class="result-value">1%</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Amount to Pay Back</span>
+          <span class="result-value accent">${fmt(totalPayback)}</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Monthly Payment</span>
+          <span class="result-value accent">${fmt(monthlyPayment)}</span>
+        </div>
+      </div>
+    `;
+  }
+</script>
 </body>
 </html>
